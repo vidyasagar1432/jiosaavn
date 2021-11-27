@@ -5,7 +5,7 @@
 ## Installing
 
 ```bash
-pip3 install https://github.com/vidyasagar1432/JioSaavn/archive/refs/tags/v0.0.1-alpha.zip
+pip3 install JioSaavn
 ```
 
 ## Async
