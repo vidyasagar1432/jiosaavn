@@ -1,9 +1,6 @@
-
 # [JioSaavn](https://github.com/vidyasagar1432/JioSaavn)
 
-##### Search for JioSaavn songs & album. Get song ,album & lyric information.
-
-#### WITHOUT JioSaavn API.
+#### Search for JioSaavn songs & album. Get song ,album & lyric information.
 
 ## Installing
 
@@ -335,9 +332,11 @@ print(result)
  <summary> Example Result</summary>
 
 ```json
-"lyrics": "bhali bhali bhalira bhali<br>sahore bahubali<br>bhali bhali bhalira bhali<br>sahore bahubali<br>jayaarti nike pattali pattali<br>bhuvanalanni jai kottali<br>gaganale chhatra pattali<br><br>haiss rudrass haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br><br>aa janani deeksha achalam<br>i koduke kavachan<br>ippuda ammaki amm ainanduka<br>pulkarinchindiga i kshana<br><br>aduulu guttal mittal gaminch<br>pidikit pidugul patti minch<br>arikul vargal durgal jayinch<br>avaniki swarganne dinch<br><br>ant maha baludina amm ori pasiwade<br>shivudaina bhavudaina ammaku sat kadantade<br><br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass haisarbhadra samudrass<br>haiss rudrass  haiss rudrass<br>haisarbhadra samudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br><br>bhali bhali bhalira bhali<br>sahore bahubali<br>jayaarti nike pattali<br>bhali bhali bhalira bhali<br>sahore bahubali<br>jayaarti nike pattali pattali<br>bhuvanalanni jai kottali<br>gaganale chhatra pattali",
-"lyrics_copyright": "Writer(s): M. M. Keeravaani, Shiva Shakthi Datta, K. Ramakrishna Lyrics powered by www.musixmatch.com",
-"snippet": "haiss rudrass  haisarbhadra samudrass"
+{
+    "lyrics": "bhali bhali bhalira bhali<br>sahore bahubali<br>bhali bhali bhalira bhali<br>sahore bahubali<br>jayaarti nike pattali pattali<br>bhuvanalanni jai kottali<br>gaganale chhatra pattali<br><br>haiss rudrass haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br><br>aa janani deeksha achalam<br>i koduke kavachan<br>ippuda ammaki amm ainanduka<br>pulkarinchindiga i kshana<br><br>aduulu guttal mittal gaminch<br>pidikit pidugul patti minch<br>arikul vargal durgal jayinch<br>avaniki swarganne dinch<br><br>ant maha baludina amm ori pasiwade<br>shivudaina bhavudaina ammaku sat kadantade<br><br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass haisarbhadra samudrass<br>haiss rudrass  haiss rudrass<br>haisarbhadra samudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br>haiss rudrass  haisarbhadra samudrass<br><br>bhali bhali bhalira bhali<br>sahore bahubali<br>jayaarti nike pattali<br>bhali bhali bhalira bhali<br>sahore bahubali<br>jayaarti nike pattali pattali<br>bhuvanalanni jai kottali<br>gaganale chhatra pattali",
+    "lyrics_copyright": "Writer(s): M. M. Keeravaani, Shiva Shakthi Datta, K. Ramakrishna Lyrics powered by www.musixmatch.com",
+    "snippet": "haiss rudrass  haisarbhadra samudrass"
+}
 ```
 
 </details>
