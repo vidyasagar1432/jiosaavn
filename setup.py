@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 setup(
     name = 'JioSaavn', 
     packages = ['JioSaavn'],
-    version = 'v0.0.2',
+    version = 'v0.0.3',
     license='MIT', 
     description = 'Search for JioSaavn songs & album. Get song ,album & lyric information.',
     long_description=long_description,
@@ -16,7 +16,7 @@ setup(
     author = 'vidya sagar', 
     author_email = 'svidya051@gmail.com',
     url = 'https://github.com/vidyasagar1432/JioSaavn',
-    download_url = 'https://github.com/vidyasagar1432/JioSaavn/archive/refs/tags/v0.0.2-alpha.zip',
+    # download_url = '',
     keywords = ['jiosaavn', 'jiosaavnapi', 'songs', 'albums', 'lyrics'], 
     install_requires=[          
             'aiohttp',
