@@ -119,8 +119,8 @@ async def song(id:str,lyrics:bool=False):
         id (str): Sets the id of song.
         lyrics (bool, optional): Sets the lyrics whether to get lyrics. Defaults to False.
     Examples:
-        Calling `songFromID` function gives the search result.
-        >>> result = await songFromID('veJXEDAz')
+        Calling `song` function gives the search result.
+        >>> result = await song('veJXEDAz')
         >>> print(result)
         {
             "id": "veJXEDAz",
