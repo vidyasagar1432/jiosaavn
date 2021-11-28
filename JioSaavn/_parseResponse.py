@@ -73,7 +73,7 @@ async def makeAlbumSearchResponse(data):
         result.append(_data)
     return result
 
-async def makeAlbumResponse(data):
+async def makeAlbumResponse(data,lyrics:bool=False):
     return {
         'albumid': data['albumid'],
         'title': data['title'],
@@ -81,7 +81,19 @@ async def makeAlbumResponse(data):
         'year': data['year'],
         'primary_artists': (data['primary_artists']).split(', '),
         'image': data['image'],
-        'songs':[await makeSongResponse(song=song) for song in data['songs']],
+        'songs':[await makeSongResponse(song=song,lyrics=lyrics) for song in data['songs']],
         'perma_url': data['perma_url'],
         'release_date': data['release_date'],
+    }
+
+async def makePlaylistResponse(data,lyrics:bool=False):
+    return {
+        'listid': data['listid'],
+        'title': data['listname'],
+        'username': data['username'],
+        'list_count': data['list_count'],
+        'uid': data['uid'],
+        'perma_url': data['perma_url'],
+        'image': data['image'],
+        'songs':[await makeSongResponse(song=song,lyrics=lyrics) for song in data['songs']],
     }

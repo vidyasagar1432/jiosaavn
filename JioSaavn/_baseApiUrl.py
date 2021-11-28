@@ -15,3 +15,5 @@ def songsearchFromSTRING(query:str,p:int,n:int):
 def lyricsFromID(id:str):
     return f'https://www.jiosaavn.com/api.php?__call=lyrics.getLyrics&ctx=web6dot0&api_version=4&_format=json&_marker=0%3F_marker=0&lyrics_id={id}'
 
+def playlistFromID(id:str):
+    return f'https://www.jiosaavn.com/api.php?__call=playlist.getDetails&_format=json&cc=in&_marker=0%3F_marker%3D0&listid={id}'

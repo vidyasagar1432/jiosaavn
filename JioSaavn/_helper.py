@@ -1,6 +1,5 @@
 
-import aiohttp
-
+from ._requests import getText
 
 def ucfirst(string:str):
     return string.capitalize()
@@ -17,15 +16,23 @@ def makeDifferentQualityImages(image:str):
             "150x150": f'{image}-150x150.jpg',
             "500x500": f'{image}-500x500.jpg',}
 
-async def getsongID(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url,data=[('bitrate', '320')]) as resp:
-            res = await resp.text()
-            try:
-                return res.split('"song":{"type":"')[1].split('","image":')[0].split('"id":"')[-1]
-            except IndexError:
-                return(res.split('"pid":"'))[1].split('","')[0]
+async def getSongId(url:str):
+    response = await getText(url,data=[('bitrate', '320')])
+    try:
+        return response.split('"song":{"type":"')[1].split('","image":')[0].split('"id":"')[-1]
+    except IndexError:
+        return(response.split('"pid":"'))[1].split('","')[0]
 
-# def generateAPIUrlsFromPids(pids:str):
-#     return [f'{APP_URL}/song?id={i}' for i in pids.split(', ')]
+async def getAlbumId(url:str):
+    response = await getText(url)
+    try:
+        return response.split('"album_id":"')[1].split('"')[0]
+    except IndexError:
+        return response.split('"page_id","')[1].split('","')[0]
 
+async def getPlaylistId(url:str):
+    response = await getText(url)
+    try:
+        return response.split('"type":"playlist","id":"')[1].split('"')[0]
+    except IndexError:
+        return response.split('"page_id","')[1].split('","')[0]

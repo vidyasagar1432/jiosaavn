@@ -1,6 +1,6 @@
 # [JioSaavn](https://github.com/vidyasagar1432/JioSaavn)
 
-#### Search for JioSaavn songs & album. Get song ,album & lyric information.
+#### Search for JioSaavn songs & album. Get song ,album, lyric & playlist information from url or id.
 
 ## Installing
 
@@ -121,11 +121,13 @@ print(search)
 
 </details>
 
-#### Get Album
+#### Get Album from url or id
 
 ```python
 from JioSaavn import album
-result = await album('1215558')
+result = await album(id='10496527')
+OR
+result = await album(url='https://www.jiosaavn.com/album/baahubali-2---the-conclusion/Vm5jaOSkM7E_')
 print(result)
 ```
 
@@ -268,11 +270,13 @@ print(result)
 </details>
 
 
-#### Get song
+#### Get song from url or id
 
 ```python
 from JioSaavn import song
-result = await song('veJXEDAz')
+result = await song(id='veJXEDAz')
+OR
+result = await song(url='https://www.jiosaavn.com/song/alone/Bg0haTF0dkk')
 print(result)
 ```
 
@@ -320,11 +324,13 @@ print(result)
 
 </details>
 
-#### Get lyric
+#### Get lyric from url or id
 
 ```python
 from JioSaavn import lyrics
-result = await lyrics('blMuXL1P')
+result = await lyrics(id='blMuXL1P')
+OR
+result = await lyrics(url='https://www.jiosaavn.com/song/alone/Bg0haTF0dkk')
 print(result)
 ```
 
@@ -341,6 +347,153 @@ print(result)
 
 </details>
 
+#### Get playlist from url or id
+
+```python
+from JioSaavn import playlist
+result = await playlist(id='268477478')
+OR
+result = await playlist(url='https://www.jiosaavn.com/s/playlist/88063878238ad9a391a33c0e628d2b01/90s_Love/OykxHSA0YytFo9wdEAzFBA__')
+print(result)
+```
+
+<details>
+ <summary> Example Result</summary>
+
+```json
+
+{
+    "listid": "268477478",
+    "title": "90's Love",
+    "username": "",
+    "list_count": "17",
+    "uid": "88063878238ad9a391a33c0e628d2b01",
+    "perma_url": "https://www.jiosaavn.com/s/playlist/88063878238ad9a391a33c0e628d2b01/90s_Love/OykxHSA0YytFo9wdEAzFBA__",
+    "image": "https://pli.saavncdn.com/74/78/268477478.jpg?bch=1555760417",
+    "songs": [
+        {
+            "id": "2XLkr2Gd",
+            "song": "Kal Ho Naa Ho",
+            "album": "Kal Ho Naa Ho (Original Motion Picture Soundtrack)",
+            "year": "2003",
+            "primary_artists": [
+                "Shankar-Ehsaan-Loy",
+                "Sonu Nigam"
+            ],
+            "singers": [
+                "Shankar-Ehsaan-Loy",
+                "Sonu Nigam"
+            ],
+            "image": "https://c.saavncdn.com/909/Kal-Ho-Naa-Ho-Hindi-2003-500x500.jpg",
+            "images": {
+                "50x50": "https://c.saavncdn.com/909/Kal-Ho-Naa-Ho-Hindi-2003-50x50.jpg",
+                "150x150": "https://c.saavncdn.com/909/Kal-Ho-Naa-Ho-Hindi-2003-150x150.jpg",
+                "500x500": "https://c.saavncdn.com/909/Kal-Ho-Naa-Ho-Hindi-2003-500x500.jpg"
+            },
+            "duration": "321",
+            "label": "Sony Music Entertainment India Pvt. Ltd.",
+            "albumid": "1208084",
+            "language": "Hindi",
+            "copyright_text": "(P) 2003 Sony Music Entertainment India Pvt. Ltd.",
+            "has_lyrics": "false",
+            "lyrics": null,
+            "media_url": "https://aac.saavncdn.com/909/b34c95486eb42ede300a549da19a38ad_160.mp4",
+            "media_urls": {
+                "96_KBPS": "https://aac.saavncdn.com/909/b34c95486eb42ede300a549da19a38ad_96.mp4",
+                "160_KBPS": "https://aac.saavncdn.com/909/b34c95486eb42ede300a549da19a38ad_160.mp4",
+                "320_KBPS": "https://aac.saavncdn.com/909/b34c95486eb42ede300a549da19a38ad_320.mp4"
+            },
+            "release_date": "2003-09-20",
+            "url": {
+                "song": "https://www.jiosaavn.com/song/kal-ho-naa-ho/QjAnWgYCcFc",
+                "album": "https://www.jiosaavn.com/album/kal-ho-naa-ho-original-motion-picture-soundtrack/wxleSiR74Dg_"
+            }
+        },
+        {
+            "id": "lULDgPcz",
+            "song": "Main Hoon Na",
+            "album": "Main Hoon Na",
+            "year": "2004",
+            "primary_artists": [
+                "Sonu Nigam",
+                "Shreya Ghoshal"
+            ],
+            "singers": [
+                "Sonu Nigam",
+                "Shreya Ghoshal"
+            ],
+            "image": "https://c.saavncdn.com/388/Main-Hoon-Na-Hindi-2004-500x500.jpg",
+            "images": {
+                "50x50": "https://c.saavncdn.com/388/Main-Hoon-Na-Hindi-2004-50x50.jpg",
+                "150x150": "https://c.saavncdn.com/388/Main-Hoon-Na-Hindi-2004-150x150.jpg",
+                "500x500": "https://c.saavncdn.com/388/Main-Hoon-Na-Hindi-2004-500x500.jpg"
+            },
+            "duration": "361",
+            "label": "",
+            "albumid": "1037222",
+            "language": "Hindi",
+            "copyright_text": "©  2004 ",
+            "has_lyrics": "true",
+            "lyrics": null,
+            "media_url": "https://aac.saavncdn.com/388/348841a9282b5b362526a8098a7f4491_160.mp4",
+            "media_urls": {
+                "96_KBPS": "https://aac.saavncdn.com/388/348841a9282b5b362526a8098a7f4491_96.mp4",
+                "160_KBPS": "https://aac.saavncdn.com/388/348841a9282b5b362526a8098a7f4491_160.mp4",
+                "320_KBPS": "https://aac.saavncdn.com/388/348841a9282b5b362526a8098a7f4491_320.mp4"
+            },
+            "release_date": "2004-02-27",
+            "url": {
+                "song": "https://www.jiosaavn.com/song/main-hoon-na/HD0ndRNgVEk",
+                "album": "https://www.jiosaavn.com/album/main-hoon-na/Gf2uDkAyAkg_"
+            }
+        },
+        {
+            "id": "jFerJMnc",
+            "song": "Koi Mil Gaya",
+            "album": "Kuch Kuch Hota Hai (Original Motion Picture Soundtrack)",
+            "year": "1998",
+            "primary_artists": [
+                "Jatin-Lalit",
+                "Kavita Krishnamurthy",
+                "Udit Narayan",
+                "Alka Yagnik"
+            ],
+            "singers": [
+                "Jatin-Lalit",
+                "Kavita Krishnamurthy",
+                "Udit Narayan",
+                "Alka Yagnik"
+            ],
+            "image": "https://c.saavncdn.com/907/Kuch-Kuch-Hota-Hai-Hindi-1998-20190516130035-500x500.jpg",
+            "images": {
+                "50x50": "https://c.saavncdn.com/907/Kuch-Kuch-Hota-Hai-Hindi-1998-20190516130035-50x50.jpg",
+                "150x150": "https://c.saavncdn.com/907/Kuch-Kuch-Hota-Hai-Hindi-1998-20190516130035-150x150.jpg",
+                "500x500": "https://c.saavncdn.com/907/Kuch-Kuch-Hota-Hai-Hindi-1998-20190516130035-500x500.jpg"
+            },
+            "duration": "437",
+            "label": "Sony Music Entertainment India Pvt. Ltd.",
+            "albumid": "1035265",
+            "language": "Hindi",
+            "copyright_text": "(P) 1998 Sony Music Entertainment India Pvt. Ltd.",
+            "has_lyrics": "false",
+            "lyrics": null,
+            "media_url": "https://aac.saavncdn.com/907/2d22f49ec5435c9d606742ae2648a5a2_160.mp4",
+            "media_urls": {
+                "96_KBPS": "https://aac.saavncdn.com/907/2d22f49ec5435c9d606742ae2648a5a2_96.mp4",
+                "160_KBPS": "https://aac.saavncdn.com/907/2d22f49ec5435c9d606742ae2648a5a2_160.mp4",
+                "320_KBPS": "https://aac.saavncdn.com/907/2d22f49ec5435c9d606742ae2648a5a2_320.mp4"
+            },
+            "release_date": "1998-08-19",
+            "url": {
+                "song": "https://www.jiosaavn.com/song/koi-mil-gaya/Gi4OQz59WVA",
+                "album": "https://www.jiosaavn.com/album/kuch-kuch-hota-hai-original-motion-picture-soundtrack/zvqnBMKjQeM_"
+            }
+        },
+    ]
+}
+```
+
+</details>
 
 ## License
 
