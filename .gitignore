@@ -7,5 +7,6 @@
 
 __pycache__/
 .venv/
-dist
-JioSaavn.egg-info
+dist/
+build/
+jiosaavn.egg-info/
