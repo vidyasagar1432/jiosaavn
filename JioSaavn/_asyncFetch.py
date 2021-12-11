@@ -1,19 +1,38 @@
 from typing import Optional
+from pydantic import validate_arguments, Field
+from pydantic.typing import Annotated
 
-from . import _baseApiUrl,_requests
-from . import _parseResponse as parse
-from ._helper import getSongId ,getAlbumId,getPlaylistId
-from ._exceptions import ValidationError,InvalidURL
-from ._validation import isAlbumUrl,isSongUrl,isPlaylistUrl
+from . import __asyncrequests
+from . import __baseApiUrl
+from . import __asyncparseResponse
+from .__asyncrequests import getSongId ,getAlbumId,getPlaylistId
+from .__exceptions import ValidationError,InvalidURL
+from .__validation import isAlbumUrl,isSongUrl,isPlaylistUrl
+from .__constants import Response
+
+__all__ =[
+    'searchSong',
+    'searchAlbum',
+    'song',
+    'album',
+    'lyrics',
+    'playlist',
+]
 
 
-
-async def searchSong(query:str,page:int=1,limit:int=10):
+@validate_arguments
+async def searchSong(query:str,page:Annotated[int, Field(gt=0)]=1,limit:Annotated[int, Field(gt=0,lt=30)]=10,response:str='json'):
     '''Searches for song in JioSaavn.
+    
     Args:
         query (str): Sets the search query.
         page (int, optional): Sets page to the number of page. Defaults to 1.
-        limit (int, optional): Sets limit to the number of results. Defaults to 10.
+        limit (int, optional): Sets limit to the number of results. Defaults to 10. Max to 30.
+        response(str,optional): Sets the response of result. Defaults to `json`.
+    
+    Note:
+        To get raw result Set `response` to `raw`
+        
     Examples:
         Calling `searchSong` function gives the search result.
         >>> search = await searchSong('alone')
@@ -67,13 +86,23 @@ async def searchSong(query:str,page:int=1,limit:int=10):
         ]
     
         '''
-    return await parse.makeSearchResponse(data=await _requests.getjSON(url=_baseApiUrl.songsearchFromSTRING(query=query,p=page,n=limit)))
+    assert response in Response,'response should be json or raw'
+    result = await __asyncrequests.getjSON(url=__baseApiUrl.songsearchFromSTRING(query=query,p=page,n=limit))
+    if response == 'raw':
+        return result
+    return await __asyncparseResponse.makeSearchResponse(data=result)
 
 
-async def searchAlbum(query:str):
+async def searchAlbum(query:str,response:str='json'):
     '''Searches for album in JioSaavn.
+    
     Args:
         query (str): Sets the search query.
+        response(str,optional): Sets the response of result. Defaults to `json`.
+    
+    Note:
+        To get raw result Set `response` to `raw`
+            
     Examples:
         Calling `searchAlbum` function gives the search result.
         >>> search = await searchAlbum('Alone')
@@ -113,15 +142,25 @@ async def searchAlbum(query:str):
             },
         ]
     '''
-    return await parse.makeAlbumSearchResponse(data=await _requests.getjSON(_baseApiUrl.albumsearchFromSTRING(query=query)))
+    assert response in Response,'response should be json or raw'
+    result = await __asyncrequests.getjSON(__baseApiUrl.albumsearchFromSTRING(query=query))
+    if response == 'raw':
+        return result
+    return await __asyncparseResponse.makeAlbumSearchResponse(data=result)
 
 
-async def song(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False):
+async def song(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
     '''Get song info from JioSaavn.
+    
     Args:
         url (str): Sets the url of song.
         id (str): Sets the id of song.
-        lyrics (bool): Sets the lyrics whether to get lyrics. Defaults to False.
+        lyrics (bool): Sets the lyrics whether to get lyrics. Defaults to `False`.
+        response(str,optional): Sets the response of result. Defaults to `json`.
+        
+    Note:
+        To get raw result Set `response` to `raw`
+        
     Examples:
         Calling `song` function gives the search result.
         >>> result = await song(id='veJXEDAz')
@@ -169,16 +208,25 @@ async def song(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False):
         if not isSongUrl(url=url):
             raise InvalidURL('Please provide a valid jiosaavn song url')
         id = await getSongId(url=url)
-    response = await _requests.getjSON(url=_baseApiUrl.songFromID(id=id))
-    return await parse.makeSongResponse(song=response[id],lyrics=lyrics)
+    assert response in Response,'response should be json or raw'
+    result = await __asyncrequests.getjSON(url=__baseApiUrl.songFromID(id=id))
+    if response == 'raw':
+        return result
+    return await __asyncparseResponse.makeSongResponse(song=result[id],lyrics=lyrics)
 
 
-async def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False):
-    '''Searches for album in JioSaavn.
+async def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
+    '''Get album info from JioSaavn.
+    
     Args:
         url (str): Sets the url of album.
         id (str): Sets the id of album.
-        lyrics (bool): Sets the lyrics whether to get lyrics. Defaults to False.
+        lyrics (bool): Sets the lyrics whether to get lyrics. Defaults to `False`.
+        response(str,optional): Sets the response of result. Defaults to `json`.
+    
+    Note:
+        To get raw result Set `response` to `raw`
+    
     Examples:
         Calling `album` function gives the search result.
         >>> result = await album(id='10496527')
@@ -320,14 +368,25 @@ async def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False):
         if not isAlbumUrl(url=url):
             raise InvalidURL('Please provide a valid jiosaavn album url')
         id = await getAlbumId(url)
-    return await parse.makeAlbumResponse(data=await _requests.getjSON(_baseApiUrl.albumFromID(id=id)),lyrics=lyrics)
+    assert response in Response,'response should be json or raw'
+    result = await __asyncrequests.getjSON(__baseApiUrl.albumFromID(id=id))
+    if response == 'raw':
+        return result
+    return await __asyncparseResponse.makeAlbumResponse(data=result,lyrics=lyrics)
 
-async def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False):
-    '''Searches for album in JioSaavn.
+
+async def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
+    '''Get playlist info from JioSaavn.
+    
     Args:
         url (str): Sets the url of playlist.
         id (str): Sets the id of playlist.
-        lyrics (bool): Sets the lyrics whether to get lyrics. Defaults to False.
+        lyrics (bool): Sets the lyrics whether to get lyrics. Defaults to `False`.
+        response(str,optional): Sets the response of result. Defaults to `json`.
+    
+    Note:
+        To get raw result Set `response` to `raw`
+    
     Examples:
         Calling `playlist` function gives the search result.
         >>> result = await playlist(url='https://www.jiosaavn.com/s/playlist/88063878238ad9a391a33c0e628d2b01/90s_Love/OykxHSA0YytFo9wdEAzFBA__')
@@ -468,14 +527,24 @@ async def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=Fals
         if not isPlaylistUrl(url=url):
             raise InvalidURL('Please provide a valid jiosaavn playlist url')
         id = await getPlaylistId(url)
-    return await parse.makePlaylistResponse(data= await _requests.getjSON(url=_baseApiUrl.playlistFromID(id=id)),lyrics=lyrics)
+    assert response in Response,'response should be json or raw'
+    result = await __asyncrequests.getjSON(url=__baseApiUrl.playlistFromID(id=id))
+    if response == 'raw':
+        return result
+    return await __asyncparseResponse.makePlaylistResponse(data=result ,lyrics=lyrics)
 
 
-async def lyrics(url:Optional[str]=None,id:Optional[str]=None):
-    '''Get lyrics of a song from id (If Available)
+async def lyrics(url:Optional[str]=None,id:Optional[str]=None,response:str='json'):
+    '''Get lyrics of a song (If Available)
+    
     Args:
         url (str): Sets the url of playlist.
         id (str): Sets the id of song.
+        response(str,optional): Sets the response of result. Defaults to `json`.
+        
+    Note:
+        To get raw result Set `response` to `raw`
+    
     Examples:
         Calling `lyrics` function gives the search result.
         >>> result = await lyrics(id='blMuXL1P')
@@ -492,10 +561,13 @@ async def lyrics(url:Optional[str]=None,id:Optional[str]=None):
         if not isSongUrl(url=url):
             raise InvalidURL('Please provide a valid jiosaavn song url')
         id = await getSongId(url=url)
-    data = await _requests.getjSON(_baseApiUrl.lyricsFromID(id=id))
-    if data.get('status' ) == "failure":
+    assert response in Response,'response should be json or raw'
+    result = await __asyncrequests.getjSON(__baseApiUrl.lyricsFromID(id=id))
+    if response == 'raw':
+        return result
+    if result.get('status' ) == "failure":
         return {'status': f'no lyric'}
-    return {'lyrics':data.get('lyrics'),
-            'lyrics_copyright':data.get('lyrics_copyright'),
-            'snippet':data.get('snippet')
+    return {'lyrics':result.get('lyrics'),
+            'lyrics_copyright':result.get('lyrics_copyright'),
+            'snippet':result.get('snippet')
             }

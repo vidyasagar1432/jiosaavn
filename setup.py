@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 setup(
     name = 'JioSaavn', 
     packages = ['JioSaavn'],
-    version = 'v0.0.3',
+    version = 'v0.0.4',
     license='MIT', 
     description = 'Search for JioSaavn songs & album. Get song ,album & lyric information.',
     long_description=long_description,
@@ -20,6 +20,8 @@ setup(
     keywords = ['jiosaavn', 'jiosaavnapi', 'songs', 'albums', 'lyrics'], 
     install_requires=[          
             'aiohttp',
+            'pydantic',
+            'requests',
         ],
     include_package_data=True,
     zip_safe=False,
