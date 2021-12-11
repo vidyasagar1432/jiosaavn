@@ -5,20 +5,22 @@ with open("README.md", "r") as fh:
 
 
 setup(
-    name = 'JioSaavn', 
-    packages = ['JioSaavn'],
-    version = 'v0.0.4',
+    name = 'jiosaavn', 
+    packages = ['jiosaavn'],
+    version = 'v0.0.5',
     license='MIT', 
-    description = 'Search for JioSaavn songs & album. Get song ,album & lyric information.',
+    description = 'Search for JioSaavn songs & album. Get song ,album, lyric & playlist information from url or id.',
     long_description=long_description,
     long_description_content_type="text/markdown",
     author = 'vidya sagar', 
     author_email = 'svidya051@gmail.com',
-    url = 'https://github.com/vidyasagar1432/JioSaavn',
+    url = 'https://github.com/vidyasagar1432/jiosaavn',
     # download_url = '',
-    keywords = ['jiosaavn','jiosaavnapi','JioSaavn','songs','albums','lyrics'], 
+    keywords = ['jiosaavn', 'jio-saavn-api','jio-saavn','playlist','aiohttp', 'songs', 'albums', 'lyrics'], 
     install_requires=[          
             'aiohttp',
+            'pydantic',
+            'requests',
         ],
     include_package_data=True,
     zip_safe=False,

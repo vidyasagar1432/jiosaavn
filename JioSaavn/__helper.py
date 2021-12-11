@@ -1,6 +1,4 @@
 
-from ._requests import getText
-
 def ucfirst(string:str):
     return string.capitalize()
 
@@ -16,23 +14,24 @@ def makeDifferentQualityImages(image:str):
             "150x150": f'{image}-150x150.jpg',
             "500x500": f'{image}-500x500.jpg',}
 
-async def getSongId(url:str):
-    response = await getText(url,data=[('bitrate', '320')])
+
+def getSongId(response:str):
     try:
         return response.split('"song":{"type":"')[1].split('","image":')[0].split('"id":"')[-1]
     except IndexError:
         return(response.split('"pid":"'))[1].split('","')[0]
 
-async def getAlbumId(url:str):
-    response = await getText(url)
+
+def getAlbumId(response:str):
     try:
         return response.split('"album_id":"')[1].split('"')[0]
     except IndexError:
         return response.split('"page_id","')[1].split('","')[0]
 
-async def getPlaylistId(url:str):
-    response = await getText(url)
+
+def getPlaylistId(response:str):
     try:
         return response.split('"type":"playlist","id":"')[1].split('"')[0]
     except IndexError:
         return response.split('"page_id","')[1].split('","')[0]
+
