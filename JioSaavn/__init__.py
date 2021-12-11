@@ -1,15 +1,19 @@
-# from .__asyncJioSaavn import JioSaavn
+from . import Async, Sync
+from .Sync import JioSaavn,searchSong,searchAlbum,song,album,playlist,lyrics
 
 __version__ = 'v0.0.4'
-__title__ = "JioSaavn"
-__description__ = "JioSaavn Api for Python 3."
+__title__ = "jiosaavn"
+__description__ = "Search for JioSaavn songs & album. Get song ,album, lyric & playlist information from url or id."
 
 
-# __all__ =[
-#     'searchSong',
-#     'searchAlbum',
-#     'song',
-#     'album',
-#     'lyrics',
-#     'playlist',
-# ]
+__all__ =[
+    'JioSaavn',
+    'Async',
+    'Sync',
+    'searchSong',
+    'searchAlbum',
+    'song',
+    'album',
+    'lyrics',
+    'playlist',
+]

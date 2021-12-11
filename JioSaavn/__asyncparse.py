@@ -1,5 +1,4 @@
 
-import re
 from . import __helper
 from . import _asyncFetch
 
@@ -49,7 +48,6 @@ async def makeSearchResponse(data):
         'language':__helper.ucfirst(i['language']),
         'songUrl':i['perma_url'],
         'albumUrl':i['more_info']['album_url'],
-        'labelUrl':f"https://www.jiosaavn.com{i['label_url']}",
         } for i in  data['results']]
 
 

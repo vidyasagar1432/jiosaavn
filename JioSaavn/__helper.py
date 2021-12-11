@@ -15,3 +15,23 @@ def makeDifferentQualityImages(image:str):
             "500x500": f'{image}-500x500.jpg',}
 
 
+def getSongId(response:str):
+    try:
+        return response.split('"song":{"type":"')[1].split('","image":')[0].split('"id":"')[-1]
+    except IndexError:
+        return(response.split('"pid":"'))[1].split('","')[0]
+
+
+def getAlbumId(response:str):
+    try:
+        return response.split('"album_id":"')[1].split('"')[0]
+    except IndexError:
+        return response.split('"page_id","')[1].split('","')[0]
+
+
+def getPlaylistId(response:str):
+    try:
+        return response.split('"type":"playlist","id":"')[1].split('"')[0]
+    except IndexError:
+        return response.split('"page_id","')[1].split('","')[0]
+

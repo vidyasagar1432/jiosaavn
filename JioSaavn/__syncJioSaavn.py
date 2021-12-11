@@ -1,13 +1,13 @@
 
 from typing import Optional
-from . import _asyncFetch
+from . import _syncFetch
 
 class JioSaavn:
     '''
-    ### Create an instance of JioSaavn with async methods.
+    ### Create an instance of JioSaavn with sync methods.
     '''
     @staticmethod
-    async def searchSong(query:str,page:int=1,limit:int=10,response:str='json'):
+    def searchSong(query:str,page:int=1,limit:int=10,response:str='json'):
         '''Searches for song in JioSaavn.
         
         Args:
@@ -20,16 +20,16 @@ class JioSaavn:
             To get raw result Set `response` to `raw`
         
         Example:
-            Calling `searchSong` method gives the search result.
-            >>> from jiosaavn.Async import JioSaavn
-            >>> search = await JioSaavn.searchSong('alone')
+            Calling `searchSong` method gives the search result of songs.
+            >>> from jiosaavn.Sync import jioSaavn
+            >>> search = jioSaavn.searchSong('alone')
             >>> print(search)
         <https://github.com/vidyasagar1432/jiosaavn>
         '''
-        return await _asyncFetch.searchSong(query=query,page=page,limit=limit,response=response)
+        return _syncFetch.searchSong(query=query,page=page,limit=limit,response=response)
 
     @staticmethod
-    async def searchAlbum(query:str,response:str='json'):
+    def searchAlbum(query:str,response:str='json'):
         '''Searches for album in JioSaavn.
         
         Args:
@@ -41,15 +41,15 @@ class JioSaavn:
                 
         Examples:
             Calling `searchAlbum` method gives the search result of albums.
-            >>> from jiosaavn.Async import JioSaavn
-            >>> search = await JioSaavn.searchAlbum('Alone')
+            >>> from jiosaavn.Sync import jioSaavn
+            >>> search = jioSaavn.searchAlbum('Alone')
             >>> print(search)
         <https://github.com/vidyasagar1432/jiosaavn>
         '''
-        return await _asyncFetch.searchAlbum(query=query,response=response)
+        return _syncFetch.searchAlbum(query=query,response=response)
 
     @staticmethod
-    async def song(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
+    def song(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
         '''Get song info from JioSaavn.
         
         Args:
@@ -63,15 +63,15 @@ class JioSaavn:
         
         Examples:
             Calling `song` method gives the song info.
-            >>> from jiosaavn.Async import JioSaavn
-            >>> result = await JioSaavn.song(id='veJXEDAz')
+            >>> from jiosaavn.Sync import jioSaavn
+            >>> result = jioSaavn.song(id='veJXEDAz')
             >>> print(result)
         <https://github.com/vidyasagar1432/jiosaavn>
         '''
-        return await _asyncFetch.song(url=url,id=id,lyrics=lyrics,response=response)
+        return _syncFetch.song(url=url,id=id,lyrics=lyrics,response=response)
 
     @staticmethod
-    async def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
+    def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
         '''Get album info from JioSaavn.
         
         Args:
@@ -85,15 +85,15 @@ class JioSaavn:
         
         Examples:
             Calling `album` method gives the album info.
-            >>> from jiosaavn.Async import JioSaavn
-            >>> result = await JioSaavn.album(id='10496527')
+            >>> from jiosaavn.Sync import jioSaavn
+            >>> result = jioSaavn.album(id='10496527')
             >>> print(result)
         <https://github.com/vidyasagar1432/jiosaavn>
         '''
-        return await _asyncFetch.album(url=url,id=id,lyrics=lyrics,response=response)
+        return _syncFetch.album(url=url,id=id,lyrics=lyrics,response=response)
     
     @staticmethod
-    async def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
+    def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
         '''Get playlist info from JioSaavn.
         
         Args:
@@ -107,15 +107,15 @@ class JioSaavn:
         
         Examples:
             Calling `playlist` method gives the playlist info.
-            >>> from jiosaavn.Async import JioSaavn
-            >>> result = await JioSaavn.playlist(url='https://www.jiosaavn.com/s/playlist/88063878238ad9a391a33c0e628d2b01/90s_Love/OykxHSA0YytFo9wdEAzFBA__')
+            >>> from jiosaavn.Sync import jioSaavn
+            >>> result = jioSaavn.playlist(url='https://www.jiosaavn.com/s/playlist/88063878238ad9a391a33c0e628d2b01/90s_Love/OykxHSA0YytFo9wdEAzFBA__')
             >>> print(result)
         <https://github.com/vidyasagar1432/jiosaavn>
         '''
-        return await _asyncFetch.playlist(url=url,id=id,lyrics=lyrics,response=response)
+        return _syncFetch.playlist(url=url,id=id,lyrics=lyrics,response=response)
     
     @staticmethod
-    async def lyrics(url:Optional[str]=None,id:Optional[str]=None,response:str='json'):
+    def lyrics(url:Optional[str]=None,id:Optional[str]=None,response:str='json'):
         '''Get lyrics of a song (If Available)
         
         Args:
@@ -128,10 +128,10 @@ class JioSaavn:
         
         Examples:
             Calling `lyrics` method gives the lyrics of song.
-            >>> from jiosaavn.Async import JioSaavn
-            >>> result = await JioSaavn.lyrics(id='blMuXL1P')
+            >>> from jiosaavn.Sync import jioSaavn
+            >>> result = jioSaavn.lyrics(id='blMuXL1P')
             >>> print(result)
         <https://github.com/vidyasagar1432/jiosaavn>
         '''
-        return await _asyncFetch.lyrics(url=url,id=id,response=response)
+        return _syncFetch.lyrics(url=url,id=id,response=response)
 
