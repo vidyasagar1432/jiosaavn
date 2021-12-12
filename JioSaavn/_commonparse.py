@@ -63,17 +63,16 @@ def _makeAlbumSearchResponse(data):
         }for i in  data.get('albums').get('data')]
 
 def _makeAlbumResponse(data):
-    primaryArtists = data.get('primary_artists')
     return {
         'albumId': data.get('albumid'),
         'title': data.get('title'),
         'name': data.get('name'),
         'year': data.get('year'),
-        'primaryArtists': primaryArtists if primaryArtists else '',
+        'primaryArtists': data.get('primary_artists') if data.get('primary_artists') else '',
         'image': data.get('image'),
         'songUrl': data.get('perma_url'),
         'releaseDate': data.get('release_date'),
-    }
+    } if data.get('albumid') != '0' else None
 
 
 def _makePlaylistResponse(data):

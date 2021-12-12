@@ -120,7 +120,8 @@ async def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,r
         if not id:return {'status':'failed','message': f'invalid album url "{url}"'}
     result = await __asyncrequests.getjSON(url=__baseApiUrl.albumFromID(id=id))
     if response == 'raw':return result
-    return await __asyncparse.makeAlbumResponse(data=result,lyrics=lyrics) if result else {'status':'failed','message': f'invalid album Id "{id}"'}
+    result = await __asyncparse.makeAlbumResponse(data=result,lyrics=lyrics)
+    return result if result else {'status':'failed','message': f'invalid album Id "{id}"'}
 
 
 

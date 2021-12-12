@@ -119,7 +119,8 @@ def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,respons
         if not id:return {'status':'failed','message': f'invalid album url "{url}"'}
     result = __syncrequests.getjSON(url=__baseApiUrl.albumFromID(id=id))
     if response == 'raw':return result
-    return __syncparse.makeAlbumResponse(data=result,lyrics=lyrics) if result else {'status':'failed','message': f'invalid album Id "{id}"'}
+    result = __syncparse.makeAlbumResponse(data=result,lyrics=lyrics)
+    return result if result else {'status':'failed','message': f'invalid album Id "{id}"'}
 
 
 
