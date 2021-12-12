@@ -152,7 +152,8 @@ async def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=Fals
         if not id:return {'status':'failed','message': f'invalid playlist url "{url}"'}
     result = await __asyncrequests.getjSON(url=__baseApiUrl.playlistFromID(id=id))
     if response == 'raw':return result
-    return await __asyncparse.makePlaylistResponse(data=result ,lyrics=lyrics) if result else {'status':'failed','message': f'invalid playlist Id "{id}"'}
+    result = await __asyncparse.makePlaylistResponse(data=result ,lyrics=lyrics)
+    return result if result else {'status':'failed','message': f'invalid playlist Id "{id}"'}
 
 
 async def lyrics(url:Optional[str]=None,id:Optional[str]=None,response:str='json'):
