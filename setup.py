@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 setup(
     name = 'jiosaavn', 
     packages = ['jiosaavn'],
-    version = 'v0.0.6',
+    version = 'v0.0.7',
     license='MIT', 
     description = 'Search for JioSaavn songs & album. Get song ,album, lyric & playlist information from url or id.',
     long_description=long_description,
