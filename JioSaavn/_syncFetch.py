@@ -6,7 +6,7 @@ from . import __syncrequests
 from . import __baseApiUrl
 from . import __syncparse
 from .__syncrequests import getText
-from .__exceptions import ValidationError,InvalidURL
+# from .__exceptions import ValidationError,InvalidURL
 from .__validation import isAlbumUrl,isSongUrl,isPlaylistUrl
 from .__constants import Response
 from .__helper import getSongId,getAlbumId,getPlaylistId
@@ -35,9 +35,8 @@ def searchSong(query:str,page:Annotated[int, Field(gt=0)]=1,limit:Annotated[int,
     '''
     assert response in Response,'response should be json or raw'
     result = __syncrequests.getjSON(url=__baseApiUrl.songsearchFromSTRING(query=query,p=page,n=limit))
-    if response == 'raw':
-        return result
-    return __syncparse.makeSearchResponse(data=result)
+    if response == 'raw':return result
+    return __syncparse.makeSearchResponse(data=result) if result else {'status':'failed','message': 'bad request'}
 
 
 def searchAlbum(query:str,response:str='json'):
@@ -59,9 +58,8 @@ def searchAlbum(query:str,response:str='json'):
     '''
     assert response in Response,'response should be json or raw'
     result = __syncrequests.getjSON(__baseApiUrl.albumsearchFromSTRING(query=query))
-    if response == 'raw':
-        return result
-    return __syncparse.makeAlbumSearchResponse(data=result)
+    if response == 'raw':return result
+    return __syncparse.makeAlbumSearchResponse(data=result) if result else {'status':'failed','message': 'bad request'}
 
 
 def song(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
@@ -83,17 +81,15 @@ def song(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response
         >>> print(result)
     <https://github.com/vidyasagar1432/jiosaavn>
     '''
-    if not (url or id):
-        raise ValidationError('Please provide a url or id of a song')
+    if not (url or id):return {'status':'failed','message': 'Please provide a url or id of a song'}
+    if not response in Response:return {'status':'failed','message': 'response should be json or raw'}
     if url:
-        if not isSongUrl(url=url):
-            raise InvalidURL('Please provide a valid jiosaavn song url')
+        if not isSongUrl(url=url):return {'status':'failed','message': 'Please provide a valid jiosaavn song url'}
         id = getSongId(response= getText(url=url,data=[('bitrate', '320')]))
-    assert response in Response,'response should be json or raw'
+        if not id:return {'status':'failed','message': f'invalid song url "{url}"'}
     result = __syncrequests.getjSON(url=__baseApiUrl.songFromID(id=id))
-    if response == 'raw':
-        return result
-    return __syncparse.makeSongResponse(song=result[id],lyrics=lyrics)
+    if response == 'raw':return result
+    return __syncparse.makeSongResponse(song=result[id],lyrics=lyrics) if result else {'status':'failed','message': f'invalid song Id "{id}"'}
 
 
 def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
@@ -115,17 +111,16 @@ def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,respons
         >>> print(result)
     <https://github.com/vidyasagar1432/jiosaavn>
     '''
-    if not (url or id):
-        raise ValidationError('Please provide a url or id of an album')
+    if not (url or id):return {'status':'failed','message': 'Please provide a url or id of an album'}
+    if not response in Response:return {'status':'failed','message': 'response should be json or raw'}
     if url:
-        if not isAlbumUrl(url=url):
-            raise InvalidURL('Please provide a valid jiosaavn album url')
-        id = getAlbumId(getText(url=url))
-    assert response in Response,'response should be json or raw'
-    result = __syncrequests.getjSON(__baseApiUrl.albumFromID(id=id))
-    if response == 'raw':
-        return result
-    return __syncparse.makeAlbumResponse(data=result,lyrics=lyrics)
+        if not isAlbumUrl(url=url):return {'status':'failed','message': 'Please provide a valid jiosaavn album url'}
+        id = getAlbumId(response= getText(url=url))
+        if not id:return {'status':'failed','message': f'invalid album url "{url}"'}
+    result = __syncrequests.getjSON(url=__baseApiUrl.albumFromID(id=id))
+    if response == 'raw':return result
+    return __syncparse.makeAlbumResponse(data=result,lyrics=lyrics) if result else {'status':'failed','message': f'invalid album Id "{id}"'}
+
 
 
 def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
@@ -147,17 +142,16 @@ def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,resp
         >>> print(result)
     <https://github.com/vidyasagar1432/jiosaavn>
     '''
-    if not (url or id):
-        raise ValidationError('Please provide a url or id of playlist')
+    if not (url or id):return {'status':'failed','message': 'Please provide a url or id of playlist'}
+    if not response in Response:return {'status':'failed','message': 'response should be json or raw'}
     if url:
-        if not isPlaylistUrl(url=url):
-            raise InvalidURL('Please provide a valid jiosaavn playlist url')
-        id = getPlaylistId(getText(url=url))
-    assert response in Response,'response should be json or raw'
+        if not isPlaylistUrl(url=url):return {'status':'failed','message': 'Please provide a valid jiosaavn playlist url'}
+        id = getPlaylistId(response= getText(url=url))
+        if not id:return {'status':'failed','message': f'invalid playlist url "{url}"'}
     result = __syncrequests.getjSON(url=__baseApiUrl.playlistFromID(id=id))
-    if response == 'raw':
-        return result
-    return __syncparse.makePlaylistResponse(data=result ,lyrics=lyrics)
+    if response == 'raw':return result
+    return __syncparse.makePlaylistResponse(data=result ,lyrics=lyrics) if result else {'status':'failed','message': f'invalid playlist Id "{id}"'}
+
 
 
 def lyrics(url:Optional[str]=None,id:Optional[str]=None,response:str='json'):
@@ -178,19 +172,17 @@ def lyrics(url:Optional[str]=None,id:Optional[str]=None,response:str='json'):
         >>> print(result)
     <https://github.com/vidyasagar1432/jiosaavn>
     '''
-    if not (url or id):
-        raise ValidationError('Please provide a url or id of a song')
+    if not (url or id):return {'status':'failed','message': 'Please provide a url or id of a song'}
+    if not response in Response:return {'status':'failed','message': 'response should be json or raw'}
     if url:
-        if not isSongUrl(url=url):
-            raise InvalidURL('Please provide a valid jiosaavn song url')
+        if not isSongUrl(url=url):return {'status':'failed','message': 'Please provide a valid jiosaavn song url'}
         id = getSongId(response= getText(url=url,data=[('bitrate', '320')]))
-    assert response in Response,'response should be json or raw'
-    result = __syncrequests.getjSON(__baseApiUrl.lyricsFromID(id=id))
-    if response == 'raw':
-        return result
-    if result.get('status' ) == "failure":
-        return {'status': f'no lyric'}
+        if not id:return {'status':'failed','message': f'invalid song url "{url}"'}
+    result = __syncrequests.getjSON(url=__baseApiUrl.lyricsFromID(id=id))
+    if response == 'raw':return result
+    if result.get('status') == "failure":return {'status': 'no lyric'}
     return {'lyrics':result.get('lyrics'),
             'lyrics_copyright':result.get('lyrics_copyright'),
             'snippet':result.get('snippet')
-            }
+            } if result else {'status':'failed','message': f'invalid song Id "{id}"'}
+

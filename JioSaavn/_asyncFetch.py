@@ -33,10 +33,9 @@ async def searchSong(query:str,page:Annotated[int, Field(gt=0)]=1,limit:Annotate
         >>> print(search)
     <https://github.com/vidyasagar1432/jiosaavn>
         '''
-    assert response in Response,'response should be json or raw'
+    if not response in Response:return {'status':'failed','message': 'response should be json or raw'}
     result = await __asyncrequests.getjSON(url=__baseApiUrl.songsearchFromSTRING(query=query,p=page,n=limit))
-    if response == 'raw':
-        return result
+    if response == 'raw':return result
     return await __asyncparse.makeSearchResponse(data=result)
 
 
@@ -57,10 +56,9 @@ async def searchAlbum(query:str,response:str='json'):
         >>> print(search)
     <https://github.com/vidyasagar1432/jiosaavn>
     '''
-    assert response in Response,'response should be json or raw'
+    if not response in Response:return {'status':'failed','message': 'response should be json or raw'}
     result = await __asyncrequests.getjSON(__baseApiUrl.albumsearchFromSTRING(query=query))
-    if response == 'raw':
-        return result
+    if response == 'raw':return result
     return await __asyncparse.makeAlbumSearchResponse(data=result)
 
 
@@ -83,17 +81,16 @@ async def song(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,re
         >>> print(result)
     <https://github.com/vidyasagar1432/jiosaavn>
     '''
-    if not (url or id):
-        raise ValidationError('Please provide a url or id of a song')
+    if not (url or id):return {'status':'failed','message': 'Please provide a url or id of a song'}
+    if not response in Response:return {'status':'failed','message': 'response should be json or raw'}
     if url:
-        if not isSongUrl(url=url):
-            raise InvalidURL('Please provide a valid jiosaavn song url')
+        if not isSongUrl(url=url):return {'status':'failed','message': 'Please provide a valid jiosaavn song url'}
         id = getSongId(response= await getText(url=url,data=[('bitrate', '320')]))
-    assert response in Response,'response should be json or raw'
+        if not id:return {'status':'failed','message': f'invalid song url "{url}"'}
     result = await __asyncrequests.getjSON(url=__baseApiUrl.songFromID(id=id))
-    if response == 'raw':
-        return result
-    return await __asyncparse.makeSongResponse(song=result[id],lyrics=lyrics)
+    if response == 'raw':return result
+    return await __asyncparse.makeSongResponse(song=result[id],lyrics=lyrics) if result else {'status':'failed','message': f'invalid song Id "{id}"'}
+
 
 
 async def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
@@ -115,17 +112,16 @@ async def album(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,r
         >>> print(result)
     <https://github.com/vidyasagar1432/jiosaavn>
     '''
-    if not (url or id):
-        raise ValidationError('Please provide a url or id of an album')
+    if not (url or id):return {'status':'failed','message': 'Please provide a url or id of an album'}
+    if not response in Response:return {'status':'failed','message': 'response should be json or raw'}
     if url:
-        if not isAlbumUrl(url=url):
-            raise InvalidURL('Please provide a valid jiosaavn album url')
-        id = getAlbumId(await getText(url=url))
-    assert response in Response,'response should be json or raw'
-    result = await __asyncrequests.getjSON(__baseApiUrl.albumFromID(id=id))
-    if response == 'raw':
-        return result
-    return await __asyncparse.makeAlbumResponse(data=result,lyrics=lyrics)
+        if not isAlbumUrl(url=url):return {'status':'failed','message': 'Please provide a valid jiosaavn album url'}
+        id = getAlbumId(response= await getText(url=url))
+        if not id:return {'status':'failed','message': f'invalid album url "{url}"'}
+    result = await __asyncrequests.getjSON(url=__baseApiUrl.albumFromID(id=id))
+    if response == 'raw':return result
+    return await __asyncparse.makeAlbumResponse(data=result,lyrics=lyrics) if result else {'status':'failed','message': f'invalid album Id "{id}"'}
+
 
 
 async def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,response:str='json'):
@@ -147,17 +143,15 @@ async def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=Fals
         >>> print(result)
     <https://github.com/vidyasagar1432/jiosaavn>
     '''
-    if not (url or id):
-        raise ValidationError('Please provide a url or id of playlist')
+    if not (url or id):return {'status':'failed','message': 'Please provide a url or id of playlist'}
+    if not response in Response:return {'status':'failed','message': 'response should be json or raw'}
     if url:
-        if not isPlaylistUrl(url=url):
-            raise InvalidURL('Please provide a valid jiosaavn playlist url')
-        id = getPlaylistId(await getText(url=url))
-    assert response in Response,'response should be json or raw'
+        if not isPlaylistUrl(url=url):return {'status':'failed','message': 'Please provide a valid jiosaavn playlist url'}
+        id = getPlaylistId(response= await getText(url=url))
+        if not id:return {'status':'failed','message': f'invalid playlist url "{url}"'}
     result = await __asyncrequests.getjSON(url=__baseApiUrl.playlistFromID(id=id))
-    if response == 'raw':
-        return result
-    return await __asyncparse.makePlaylistResponse(data=result ,lyrics=lyrics)
+    if response == 'raw':return result
+    return await __asyncparse.makePlaylistResponse(data=result ,lyrics=lyrics) if result else {'status':'failed','message': f'invalid playlist Id "{id}"'}
 
 
 async def lyrics(url:Optional[str]=None,id:Optional[str]=None,response:str='json'):
@@ -178,19 +172,17 @@ async def lyrics(url:Optional[str]=None,id:Optional[str]=None,response:str='json
         >>> print(result)
     <https://github.com/vidyasagar1432/jiosaavn>
     '''
-    if not (url or id):
-        raise ValidationError('Please provide a url or id of a song')
+    
+    if not (url or id):return {'status':'failed','message': 'Please provide a url or id of a song'}
+    if not response in Response:return {'status':'failed','message': 'response should be json or raw'}
     if url:
-        if not isSongUrl(url=url):
-            raise InvalidURL('Please provide a valid jiosaavn song url')
+        if not isSongUrl(url=url):return {'status':'failed','message': 'Please provide a valid jiosaavn song url'}
         id = getSongId(response= await getText(url=url,data=[('bitrate', '320')]))
-    assert response in Response,'response should be json or raw'
-    result = await __asyncrequests.getjSON(__baseApiUrl.lyricsFromID(id=id))
-    if response == 'raw':
-        return result
-    if result.get('status' ) == "failure":
-        return {'status': f'no lyric'}
+        if not id:return {'status':'failed','message': f'invalid song url "{url}"'}
+    result = await __asyncrequests.getjSON(url=__baseApiUrl.lyricsFromID(id=id))
+    if response == 'raw':return result
+    if result.get('status') == "failure":return {'status': 'no lyric'}
     return {'lyrics':result.get('lyrics'),
             'lyrics_copyright':result.get('lyrics_copyright'),
             'snippet':result.get('snippet')
-            }
+            } if result else {'status':'failed','message': f'invalid song Id "{id}"'}
