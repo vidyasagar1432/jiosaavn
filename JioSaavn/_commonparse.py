@@ -76,6 +76,7 @@ def _makeAlbumResponse(data):
 
 
 def _makePlaylistResponse(data):
+    print(data)
     return {
         'id': data.get('listid'),
         'listname': data.get('listname'),
@@ -83,4 +84,4 @@ def _makePlaylistResponse(data):
         'listCount': data.get('list_count'),
         'playlistUrl': data.get('perma_url'),
         'image': data.get('image'),
-    }
+    } if data.get('listid') else None

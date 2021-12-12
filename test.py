@@ -10,7 +10,7 @@ async def defMain():
     # data = await asyncJioSaavn.song(id='veJXEDz',)
     # data =  await asyncJioSaavn.searchSong('alone')
     # data =  await asyncJioSaavn.searchAlbum('Alone' )
-    data = await asyncJioSaavn.album(id='awdawdawd')
+    # data = await asyncJioSaavn.album(url='https://www.jiosaavn.com/album/Vm5jaOSkM7E_')
     # data =  await asyncJioSaavn.playlist(url='https://www.jiosaavn.com/playlist/88063878238ad9a391a33c0e628d2b01/90s_Love/OykxHSA0YytFo9wdEAzFBA__')
     # data = syncJioSaavn.song(id='veJDA')
     # https://www.jiosaavn.com/song/alone/Bg0haTF0dkk
@@ -19,8 +19,9 @@ async def defMain():
     # data = syncJioSaavn.album(id='awdawdawd')
     # data =  syncJioSaavn.searchAlbum('Alone')
     # data =  syncJioSaavn.playlist(url='https://www.jiosaavn.com/playlist/88063878238ad9a391a33c0e628d2b01/90s_Love/OykxHSA0YytFo9wdEAzFBA__')
-        
-    print(data)
+    # data =  syncJioSaavn.playlist(id='nhhbkhbfdwsdawdawd')
+        # 
+    # print(data)
     return ''
 
 async def main():

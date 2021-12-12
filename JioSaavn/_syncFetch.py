@@ -151,7 +151,8 @@ def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=False,resp
         if not id:return {'status':'failed','message': f'invalid playlist url "{url}"'}
     result = __syncrequests.getjSON(url=__baseApiUrl.playlistFromID(id=id))
     if response == 'raw':return result
-    return __syncparse.makePlaylistResponse(data=result ,lyrics=lyrics) if result else {'status':'failed','message': f'invalid playlist Id "{id}"'}
+    result = __syncparse.makePlaylistResponse(data=result ,lyrics=lyrics)
+    return result if result else {'status':'failed','message': f'invalid playlist Id "{id}"'}
 
 
 

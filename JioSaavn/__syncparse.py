@@ -27,7 +27,8 @@ def makeAlbumResponse(data,lyrics:bool=False):
 
 def makePlaylistResponse(data,lyrics:bool=False) -> dict:
     result = _makePlaylistResponse(data)
-    result.update({
-        'songs':[makeSongResponse(song=song,lyrics=lyrics) for song in data['songs']],
-    })
-    return result
+    if result:
+        result.update({
+            'songs':[makeSongResponse(song=song,lyrics=lyrics) for song in data['songs']],
+        })
+        return result
