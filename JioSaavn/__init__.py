@@ -1,7 +1,7 @@
 from . import Async, Sync
 from .Sync import JioSaavn,searchSong,searchAlbum,song,album,playlist,lyrics
 
-__version__ = 'v0.0.7'
+__version__ = 'v0.0.8'
 __title__ = "jiosaavn"
 __description__ = "Search for JioSaavn songs & album. Get song ,album, lyric & playlist information from url or id."
 
