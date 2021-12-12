@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 setup(
     name = 'jiosaavn', 
     packages = ['jiosaavn'],
-    version = 'v0.0.9',
+    version = 'v0.1.0',
     license='MIT', 
     description = 'Search for JioSaavn songs & album. Get song ,album, lyric & playlist information from url or id.',
     long_description=long_description,
@@ -25,7 +25,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     classifiers=[
-    'Development Status :: 3 - Alpha',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
+    'Development Status :: 4 - Beta"',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
     'Intended Audience :: Developers',
     'License :: OSI Approved :: MIT License',
     'Operating System :: OS Independent', 
