@@ -156,6 +156,7 @@ async def playlist(url:Optional[str]=None,id:Optional[str]=None,lyrics:bool=Fals
     return result if result else {'status':'failed','message': f'invalid playlist Id "{id}"'}
 
 
+
 async def lyrics(url:Optional[str]=None,id:Optional[str]=None,response:str='json'):
     '''Get lyrics of a song (If Available)
     

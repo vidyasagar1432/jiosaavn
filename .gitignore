@@ -5,8 +5,10 @@
 
 # python
 
+test.py
+
 __pycache__/
-.venv/
+,venv/
 dist/
 build/
 jiosaavn.egg-info/
