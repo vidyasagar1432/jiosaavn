@@ -1,5 +1,4 @@
-
-from . import _exceptions
+from . import exceptions
 
 
 def isJioSaavnUrl(url:str):
@@ -23,10 +22,3 @@ def isPlaylistUrl(url:str):
     if not ('featured' in url or 'playlist' in url):
         raise _exceptions.InvalidURL('Please provide a valid jiosaavn playlist url')
 
-
-URL_FUNCTION = { 
-    'song' : isSongUrl,
-    'album' : isAlbumUrl,
-    'playlist' : isPlaylistUrl,
-    # 'artist' : _artistSearchResponse,
-    }
